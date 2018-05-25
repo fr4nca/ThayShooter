@@ -1,6 +1,5 @@
 package Nave;
-
-
+        
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -72,6 +71,8 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
         texturaNave.enable(gl);
         texturaNave.bind(gl);
 
+        gl.glRotatef(0f, 0f, 2f, 0f);
+        
         gl.glPushMatrix();
             corpo();
             gl.glPushMatrix();
@@ -84,6 +85,11 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
                         foguinho();
                     gl.glPopMatrix();
                 gl.glPopMatrix();
+                gl.glPushMatrix();
+                    gl.glRotatef(90, -1f, 2f, 1.8f);
+                    gl.glTranslatef(-17f, -7f, 6f);
+                    partTurbina();
+                gl.glPopMatrix();
             gl.glPopMatrix();
             gl.glPushMatrix();
                 gl.glTranslatef(-12f, -10f, 5f);
@@ -95,7 +101,16 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
                         foguinho();
                     gl.glPopMatrix();
                 gl.glPopMatrix();
+                gl.glPushMatrix();
+                    gl.glRotatef(90, 1.5f, 2f, -1.3f);
+                    gl.glTranslatef(-17f, -6f, 2f);
+                    partTurbina();
+                gl.glPopMatrix();
             gl.glPopMatrix();
+//            gl.glPushMatrix();
+//                gl.glTranslatef(6f, -4f, 5f);
+//                arma();
+//            gl.glPopMatrix();
         gl.glPopMatrix();
         texturaNave.disable(gl);
     }
@@ -116,19 +131,19 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
         glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
         glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
         glu.gluQuadricOrientation(cafe, GLU.GLU_OUTSIDE);
-        glu.gluCylinder(cafe, .1f, 4.8f, 8f, 10, 50);
+        glu.gluCylinder(cafe, .1f, 5.3f, 8f, 10, 50);
         glu.gluDeleteQuadric(cafe);
         gl.glPopMatrix();
     }
 
     public void corpo() {
-        gl.glTranslatef(0f, 40f, 30f);
+        //gl.glTranslatef(0f, 40f, 30f);
         GLUquadric cafe = glu.gluNewQuadric();
         glu.gluQuadricTexture(cafe, true);
         glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
         glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
         glu.gluQuadricOrientation(cafe, GLU.GLU_OUTSIDE);
-        glu.gluCylinder(cafe, .1f, 6f, 8f, 10, 50);
+        glu.gluCylinder(cafe, .1f, 6.3f, 8f, 50, 50);
         glu.gluDeleteQuadric(cafe);
         //corpo
         gl.glPushMatrix();
@@ -143,8 +158,14 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
     }
 
     public void partTurbina() {
-        //gl.glScaled(4f, 0, 0);
-        glut.glutSolidCube(2f);
+        GLUquadric cafe = glu.gluNewQuadric();
+        gl.glScalef(-.1f, 1.2f, .3f);
+        glu.gluQuadricTexture(cafe, true);
+        glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
+        glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
+        glu.gluQuadricOrientation(cafe, GLU.GLU_OUTSIDE);
+        glu.gluCylinder(cafe, 5f, 5f, 8f, 10, 50);
+        glu.gluDeleteQuadric(cafe);
     }
 
     public void donut(){
@@ -153,8 +174,33 @@ public class RenderizadorNave extends MouseAdapter implements GLEventListener, K
     }
     
     public void foguinho(){
+        
         GLUquadric cafe = glu.gluNewQuadric();
+        glu.gluQuadricTexture(cafe, true);
+        glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
+        glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
         glu.gluCylinder(cafe, 3.5f, .1f, 10f, 20, 50);
+    }
+    
+    public void arma(){
+        GLUquadric cafe = glu.gluNewQuadric();
+        gl.glScalef(-.1f, -.1f, .3f);
+        glu.gluQuadricTexture(cafe, true);
+        glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
+        glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
+        glu.gluQuadricOrientation(cafe, GLU.GLU_OUTSIDE);
+        glu.gluCylinder(cafe, 5.5f, 5f, 20f, 10, 50);
+        glu.gluDeleteQuadric(cafe);
+        //asa direita ponta
+        gl.glPushMatrix();
+        gl.glTranslatef(0f, 0f, -8f);
+        glu.gluQuadricTexture(cafe, true);
+        glu.gluQuadricDrawStyle(cafe, GLU.GLU_FILL);
+        glu.gluQuadricNormals(cafe, GLU.GLU_FLAT);
+        glu.gluQuadricOrientation(cafe, GLU.GLU_OUTSIDE);
+        glu.gluCylinder(cafe, .1f, 5.3f, 8f, 10, 50);
+        glu.gluDeleteQuadric(cafe);
+        gl.glPopMatrix();
     }
     
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
