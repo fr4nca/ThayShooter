@@ -16,13 +16,13 @@ import javax.swing.WindowConstants;
 
 public class ThayShooter implements GLEventListener, KeyListener {
 
-    private RenderizadorNave nave;
-    private RenderizadorInimigo ini;
+    private final RenderizadorNave nave;
+    private final RenderizadorInimigo ini;
 
     public ThayShooter() {
 
         JFrame telaPrincipal = new JFrame("ThayShooter");
-        telaPrincipal.setBounds(50, 100, 800, 800);
+        telaPrincipal.setBounds(50, 100, 1600, 900);
         telaPrincipal.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
         BorderLayout layout = new BorderLayout();
@@ -41,9 +41,9 @@ public class ThayShooter implements GLEventListener, KeyListener {
 
         GLCanvas canvas = new GLCanvas(caps);
         telaPrincipal.add(canvas, BorderLayout.CENTER);
-        canvas.addGLEventListener((GLEventListener) nave);
-        canvas.addMouseListener((MouseListener) nave);
-        canvas.addKeyListener((KeyListener) nave);
+        canvas.addGLEventListener((GLEventListener) ini);
+        canvas.addMouseListener((MouseListener) ini);
+        canvas.addKeyListener((KeyListener) ini);  
         telaPrincipal.setVisible(true);
         canvas.requestFocus();
     }
